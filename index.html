@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" href="images/icon.png" sizes="16x16">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@1,700&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@0;1&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+/* body {
+  background-color: rgb(183, 206, 82);
+  background-repeat: repeat;
+  background-attachment: fixed;  
+  background-size: auto;
+} */
+
+body {
+  background: hsl(var(--hue), var(--sat), var(--light));
+  animation:
+    hues 30000ms infinite alternate linear,
+    sats 33000ms infinite alternate linear,
+    lights 30000ms infinite alternate linear;
+}
+@keyframes hues {
+  100% {
+    --hue: 360;
+  }
+}
+@keyframes sats {
+  20% {
+    --sat: 0%;
+  }
+}
+@keyframes lights {
+  90% {
+    --light: 50%;
+  }
+}
+
+#text {
+  position: relative;
+  font-weight: bolder;
+  font-size: 60px;
+  line-height: 0.8em;
+  letter-spacing: 2px;
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Press Start 2P', cursive;
+  transform: skew(25deg);
+  padding: 24px;
+}
+
+h1 {
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Press Start 2P', cursive;
+  /* font-family: "Verdana", "Helvetica", sans-serif; */
+  font-size: 36px;
+  text-shadow: 0px 3px #3b3b3b;
+  /* color animation */
+	-webkit-animation-direction: normal;
+	-webkit-animation-duration: 60s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-name: colours;
+	-webkit-animation-timing-function: ease;
+  transform: skew(-25deg);
+}
+
+@-webkit-keyframes colours {
+	  0% {color: rgb(238, 255, 0);}
+    5% {color: #1875ff;}
+	 10% {color: #00d5ff;}
+	 15% {color: #ffbb00;}
+	 20% {color: #aaff00;}
+	 25% {color: #ff00fb;}
+	 30% {color: #00d9ff;}
+	 35% {color: #ff9100;}
+   40% {color: #001aff;}
+   45% {color: #00ffaa;}
+   50% {color: #8c00ff;}
+   55% {color: #00ff15;}
+   60% {color: #ff5e00;}
+   65% {color: #00ff00;}
+   70% {color: #ff0000;}
+   75% {color: #d9ff00;}
+   80% {color: #2f00ff;}
+   85% {color: #1eff00;}
+   90% {color: #ff00d4;}
+   95% {color: #ffa600;}
+   100% {color: rgb(238, 255, 0);}
+}
+
+* {box-sizing: border-box}
+.mySlides1, .mySlides2, .mySlides3{display: none}
+img {vertical-align: middle;}
+
+
+/* .slideshow-container{
+  position: absolute;
+	 top: 10%;
+	 left: 50%;
+} */
+
+.slideshow-container-head {
+  max-width: 600px;
+  max-height: 220px;
+  position: relative;
+  margin: auto;
+}
+
+.slideshow-container-body {
+  max-width: 600px;
+  max-height: 420px;
+  position: relative;
+  margin: auto;
+}
+
+.slideshow-container-foot {
+  max-width: 600px;
+  max-height: 120px;
+  position: relative;
+  margin: auto;
+}
+
+
+
+
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 30%;
+  width: auto;
+  font-weight: normal;
+  font-size: 36px;
+  transition: 0.2s ease;
+  user-select: none;
+  margin: 12px;
+  padding: 12px;
+  /* background-color: #556eff; */
+}
+
+
+.prev {
+  left: 0;
+  border-radius: 18px 2px 18px 2px;
+  /* transform: skewX(18deg); */
+}
+
+.next {
+  right: 0;
+  border-radius: 2px 18px 2px 18px;
+  /* transform: skewX(-18deg); */
+}
+
+.prev:hover, .next:hover {
+  background-color: #ff4665;
+}
+
+/* play music */
+#button-container {  
+    width: 36px;
+    height: 36px;
+    margin: 0px auto;
+    border: 0px solid #000;
+    border-radius: 50%;
+    background-size: auto;  
+    box-shadow: 0 0.5em 0.5em rgba( 0, 0, 0, 0.3 ), 
+                0.5em 0 0.5em rgba( 0, 0, 0, 0.3 ),
+                0 -0.5em 0.5em rgba( 0, 0, 0, 0.3 ), 
+                -0.5em 0 0.5em rgba( 0, 0, 0, 0.3 );
+ } 
+
+#button {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 10% auto;
+    border: 0px solid #000;
+    border-radius: 60%;
+    background-color: rgba( 0, 0, 0, 0.5 );
+    background-image: url(images/play-pause-button3.png);
+    background-size: 100% auto;
+    cursor: pointer;
+ }
+
+.pause {
+    background-position: 0 -100%;
+ }
+
+.hide { 
+    display: none;
+ }
+
+.remove {
+    position: absolute;
+    left: -999em;
+ }
+
+ /* glitch effect */
+ .glitch {
+	 font-size: 10em;
+   text-align: center;
+   font-family: 'IBM Plex Mono', monospace;
+   font-family: 'Press Start 2P', cursive;
+	 font-weight: bolder;
+	 text-decoration: none;
+	 text-transform: uppercase;
+	 position: absolute;
+	 top: 50%;
+	 left: 50%;
+	 transform: translate(-50%, -50%);
+	 margin: 0;
+	 color: rgb(46, 46, 46);
+	 letter-spacing: 5px;
+}
+ .glitch:before, .glitch:after {
+	 display: block;
+	 content: attr(data-glitch);
+	 text-transform: uppercase;
+	 position: absolute;
+	 top: 0;
+	 left: 0;
+	 height: 100%;
+	 width: 100%;
+	 opacity: 0.8;
+}
+ .glitch:after {
+	 color: rgb(0, 255, 34);
+	 z-index: -2;
+}
+ .glitch:before {
+	 color: rgb(255, 0, 0);
+	 z-index: -1;
+}
+ .glitch:hover:before {
+	 animation: glitch 0.2s cubic-bezier(0.25, 0.45, 0.45, 0.95) both 5;
+}
+ .glitch:hover:after {
+	 animation: glitch 0.2s cubic-bezier(0.25, 0.45, 0.45, 0.95) reverse both 5;
+}
+ @media only screen and (max-width: 400px) {
+	 .glitch {
+		 font-size: 3em;
+	}
+}
+ @keyframes glitch {
+	 0% {
+		 transform: translate(0);
+	}
+	 20% {
+		 transform: translate(-8px, 8px);
+	}
+	 40% {
+		 transform: translate(-8px, -8px);
+	}
+	 60% {
+		 transform: translate(8px, 8px);
+	}
+	 80% {
+		 transform: translate(8px, -8px);
+	}
+	 to {
+		 transform: translate(0);
+	}
+}
+
+/* music button */
+.oneandtwo {
+  width: 60%;
+  height: 80px;
+  background: none;
+  margin: auto;
+  padding: 0px;
+}
+
+.one {
+  width: 10%;
+  height: 80px;
+  background: none;
+  float: left;
+}
+
+.two {
+  margin-left: 10%;
+  height: 80px;
+  background: none;
+}
+
+@media only screen and (max-width:800px) {
+  /* For mobile phones: */
+  .oneandtwo {
+    width: 100%;
+    margin-left: 0%;
+    margin-top: 24px;
+  }
+  .one {
+    width:100%;
+    align-content: center;
+  }
+  .two {
+    width: 100%;
+    align-content: center;
+    margin: 0%;
+    padding: 8px;
+  }
+  h1 {
+  margin: 8%;
+  padding: 12px;
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Press Start 2P', cursive;
+  /* font-family: "Verdana", "Helvetica", sans-serif; */
+  font-size: 24px;
+  text-shadow: 0px 0px #3b3b3b;
+  /* color animation */
+	-webkit-animation-direction: normal;
+	-webkit-animation-duration: 60s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-name: colours;
+	-webkit-animation-timing-function: ease;
+  transform: skew(0deg);
+  }
+  .glitch {
+	 font-size: 4em;
+   text-align: center;
+   font-family: 'IBM Plex Mono', monospace;
+   font-family: 'Press Start 2P', cursive;
+	 font-weight: bolder;
+	 text-decoration: none;
+	 text-transform: uppercase;
+	 position: absolute;
+	 top: 50%;
+	 left: 50%;
+	 transform: translate(-50%, -50%);
+	 margin: 0;
+	 color: rgb(46, 46, 46);
+	 letter-spacing: 5px;
+   }
+}
+
+@media only screen and (max-width:400px) {
+  /* For extremely small mobile phones: */
+  .oneandtwo, .one, .two {
+    display: none;
+  }
+  .glitch {
+	 font-size: 2em;
+   text-align: center;
+   font-family: 'IBM Plex Mono', monospace;
+   font-family: 'Press Start 2P', cursive;
+	 font-weight: bolder;
+	 text-decoration: none;
+	 text-transform: uppercase;
+	 position: absolute;
+	 top: 30%;
+	 left: 50%;
+	 transform: translate(-50%, -50%);
+	 margin: 0;
+	 color: rgb(46, 46, 46);
+	 letter-spacing: 5px;
+   }
+}
+
+
+.manifesto {
+    background: none;
+    color: rgb(0, 0, 0);
+    text-align: left;
+    font-size: 12px;
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-top: 60px;
+    font-family: 'Roboto Mono', monospace, sans-serif;
+}
+
+/* footer */
+.footer {
+    background: none;
+    color: #333;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 80px;
+    padding: 16px;
+    font-family: sans-serif;
+}
+</style>
+</head>
+
+
+<body>
+
+<audio id="player" controls="" preload="" class="remove">
+  <source src="fashion show music.mp3" type="audio/mpeg">
+</audio>
+<!-- <script src="play.js"></script> -->
+
+<a href="#" class="glitch" data-glitch="Fashion Show">Fashion Show</a>
+
+
+
+<!-- Slideshow head -->
+<div class="slideshow-container-head">
+  <div class="mySlides1">
+    <img src="images/head1.png" style="width:100%">
+  </div>
+
+  <div class="mySlides1">
+    <img src="images/head2.png" style="width:100%">
+  </div>
+
+  <div class="mySlides1">
+    <img src="images/head3.png" style="width:100%">
+  </div>
+
+  <div class="mySlides1">
+    <img src="images/head5.png" style="width:100%">
+  </div>
+
+  <div class="mySlides1">
+    <img src="images/head6.png" style="width:100%">
+  </div>
+
+  <a class="prev" onclick="plusSlides(-1, 0)">&#129307;</a>
+  <a class="next" onclick="plusSlides(1, 0)">&#129305;</a>
+</div>
+
+<!-- Slideshow body -->
+<div class="slideshow-container-body">
+  <div class="mySlides2">
+    <img src="images/body1.png" style="width:100%">
+  </div>
+
+  <div class="mySlides2">
+    <img src="images/body2.png" style="width:100%">
+  </div>
+
+  <div class="mySlides2">
+    <img src="images/body3.png" style="width:100%">
+  </div>
+
+  <div class="mySlides2">
+    <img src="images/body4.png" style="width:100%">
+  </div>
+
+  <div class="mySlides2">
+    <img src="images/body5.png" style="width:100%">
+  </div>
+
+  <div class="mySlides2">
+    <img src="images/body6.png" style="width:100%">
+  </div>
+
+  <div class="mySlides2">
+    <img src="images/body7.png" style="width:100%">
+  </div>
+
+  <a class="prev" onclick="plusSlides(-1, 1)">&#128170;</a>
+  <a class="next" onclick="plusSlides(1, 1)">&#129331;</a>
+</div>
+
+<!-- Slideshow foot -->
+<div class="slideshow-container-foot">
+  <div class="mySlides3">
+    <img src="images/foot1.png" style="width:100%">
+  </div>
+
+  <div class="mySlides3">
+    <img src="images/foot2.png" style="width:100%">
+  </div>
+
+  <div class="mySlides3">
+    <img src="images/foot3.png" style="width:100%">
+  </div>
+
+  <div class="mySlides3">
+    <img src="images/foot4.png" style="width:100%">
+  </div>
+
+  <div class="mySlides3">
+    <img src="images/foot5.png" style="width:100%">
+  </div>
+
+  <div class="mySlides3">
+    <img src="images/foot6.png" style="width:100%">
+  </div>
+
+  <a class="prev" onclick="plusSlides(-1, 2)">&#128079;</a>
+  <a class="next" onclick="plusSlides(1, 2)">&#127771;</a>
+</div>
+
+<div class="manifesto">
+
+</div>
+
+
+<div>
+  <!-- music button -->
+  <div class="oneandtwo">
+    <div class="one">
+      <div id="button-container" class="">
+        <div id="button" class=""></div>
+      </div>
+    </div>
+  <!-- text -->
+    <div class="two">
+      <h1 href="" class="typewrite" data-period="2000" data-type='[ 
+      "Welcome", 
+      "To this fancy fashion show", 
+      "Try to click the emojis",
+      "Don&#39;t forget to put some musics on", 
+      "Enjoy!" 
+      ]'>
+      </h1>
+    </div>
+  </div>
+</div> 
+
+
+<div class="manifesto">
+  <p style="font-size: 18px;"><b>Postanimalism? The faceless?</b></p>
+  <p>
+    This artwork is inspired by Charlotte’s photography. Following the rich and ambiguous tradition of mythologies about human and animal, Cory created images in the form of Victorian studio portraiture. Where are they? Who are they? In these bizarre photos. Despite the laughter and the joke in the worldview, and the title – YOU, ANIMAL, YOU, of her album. By changing the pronoun from “they” to “we”, serious questions have been asked: Where are we? Who are we? Who we think we are?
+Take Cory’s idea as a starting point, new light can be shaded on these faceless people or beings. Through the lens of Levinas:<br>
+<i>&emsp;&emsp;What we call the face is precisely this exceptional presentation of self by self. (Totality and Infinity Expression, or the face, overflows images. (Totality and Infinity 297)<br>
+  &emsp;&emsp;The face of the Other at each moment destroys and overflows the plastic image it leaves me, the idea existing to my own measure. It expresses itself. (Totality and Infinity 50-51)<br>
+  &emsp;&emsp;The face is a living presence; it is expression. The life of expression consists in undoing the form in which the existent, exposed as a theme, is thereby dissimulated. The face speaks. The manifestation of the face is already discourse. He who manifests himself comes, according to Plato’s expression, to his own assistance. He at each instant undoes the form he presents. (Totality and Infinity 66)<br></i>
+  Then, can we go beyond the anthropocentric presuppositions, and think about the faceless beings, ethically? Here, I borrow the fashion-show aesthetic, which is already bizarre and alienated enough, and use the title Post-animalism, as a contrast to Posthumanism, with the hope of evoking people to think the problems underling the human-centralism notion.
+  </p>
+</div>
+
+<!-- footer -->
+<div class="footer">
+  <p>© 2021 Dai, Gu Jie All Rights Reserved</p>
+</div>
+
+
+<script>
+// slideshow
+var slideIndex = [1,1,1];
+var slideId = ["mySlides1", "mySlides2", "mySlides3"]
+showSlides(1, 0);
+showSlides(1, 1);
+showSlides(1, 2);
+
+
+
+function plusSlides(n, no) {
+  showSlides(slideIndex[no] += n, no);
+}
+
+function showSlides(n, no) {
+  var i;
+  var x = document.getElementsByClassName(slideId[no]);
+  if (n > x.length) {slideIndex[no] = 1}    
+  if (n < 1) {slideIndex[no] = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";  
+  }
+  x[slideIndex[no]-1].style.display = "block";  
+}
+
+// play music
+( function( d ) {
+    'use strict';
+  
+     var test = true,
+         but = d.querySelector( '#button' ),
+         aud = d.querySelector( '#player' );
+         aud.classList.add( 'remove' );
+         d.querySelector( '#button-container' ).classList.remove( 'hide' );
+  
+     but.addEventListener('click',
+        function() {
+           if ( test === true ) {
+                but.classList.add( 'pause' );
+                test = false;
+                aud.play();
+           }
+           else {
+                changeSVG();
+                aud.pause();
+           }
+        }, false );
+  
+     aud.addEventListener( 'ended',
+        function() {
+           changeSVG();
+           aud.load();
+         }, false );
+  
+     function changeSVG() {
+        but.classList.remove( 'pause' );
+        test = true;
+      }
+   }( document ));
+
+
+// background color animation
+if (window.CSS && CSS.registerProperty) { document.body.classList.add('supported');
+  
+  CSS.registerProperty({
+    name: '--hue',
+    syntax: '<number>',
+    inherits: false,
+    initialValue: 0
+  });
+  CSS.registerProperty({
+    name: '--sat',
+    syntax: '<percentage>',
+    inherits: false,
+    initialValue: '100%'
+  });
+  CSS.registerProperty({
+    name: '--light',
+    syntax: '<percentage>',
+    inherits: false,
+    initialValue: '100%'
+  });
+}
+
+// text animation
+var TxtType = function(el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+    };
+
+    TxtType.prototype.tick = function() {
+        var i = this.loopNum % this.toRotate.length;
+        var fullTxt = this.toRotate[i];
+
+        if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+        var that = this;
+        var delta = 200 - Math.random() * 100;
+
+        if (this.isDeleting) { delta /= 2; }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+        }
+
+        setTimeout(function() {
+        that.tick();
+        }, delta);
+    };
+
+    window.onload = function() {
+        var elements = document.getElementsByClassName('typewrite');
+        for (var i=0; i<elements.length; i++) {
+            var toRotate = elements[i].getAttribute('data-type');
+            var period = elements[i].getAttribute('data-period');
+            if (toRotate) {
+              new TxtType(elements[i], JSON.parse(toRotate), period);
+            }
+        }
+        // INJECT CSS
+        var css = document.createElement("style");
+        css.type = "text/css";
+        css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+        document.body.appendChild(css);
+    };
+</script>
+
+</body>
+</html> 
